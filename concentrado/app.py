@@ -8,34 +8,8 @@ import scipy.stats as stats
 import json
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flask import render_template
 
-
-
-
-
-
-###### ETL Section #######
-#################################################
-# Extract CSV's into DataFrames
-#################################################
-#cxc_df = pd.read_csv('CXC.csv')
-#cxp_df = pd.read_csv('CXP.csv',encoding = "latin-1")
-#clientes_df = pd.read_csv('CLIENTES.csv')
-#proveedores_df = pd.read_csv('PROVEEDORES.csv',encoding = "latin-1")
-#pp_df = pd.read_csv('PP.csv')
-#################################################
-# Database Setup and Connection
-#################################################
-#connection_string = "postgres:postgres@localhost:5432/conentrado"
-#engine = create_engine("sqlite:///ProgramadePagos.sql")
-#################################################
-# Load DataFrames into database
-#################################################
-#cxc_df.to_sql(name = 'cxc', con = engine, if_exists = 'replace', index = False)
-#cxp.to_sql(name = 'cxp', con = engine, if_exists = 'replace', index = False)
-#clientes.to_sql(name = 'clientes', con = engine, if_exists = 'replace', index = False)
-#proveedores.to_sql(name = 'proveedores', con = engine, if_exists = 'replace', index = False)
-#pp.to_sql(name = 'pp', con = engine, if_exists = 'replace', index = False)
 ###### Flask Section ######
 #################################################
 # Flask Setup
@@ -104,17 +78,22 @@ class Pp(db.Model):
 #################################################
 # Flask Routes
 #################################################
+
+
 @app.route("/")
-def welcome():
-    """List all available api routes."""
-    return (
-        f"Available Routes:<br/>"
-        f"/api/v1.0/cxc<br/>"
-        f"/api/v1.0/cxp<br/>"
-        f"/api/v1.0/clientes<br/>"
-        f"/api/v1.0/proveedores<br/>"
-        f"/api/v1.0/pp"
-    )
+#def welcome():
+    #"""List all available api routes."""
+    #return (
+     #   f"Available Routes:<br/>"
+      #  f"/api/v1.0/cxc<br/>"
+       # f"/api/v1.0/cxp<br/>"
+        #f"/api/v1.0/clientes<br/>"
+        #f"/api/v1.0/proveedores<br/>"
+        #f"/api/v1.0/pp"
+    #)
+
+def home():
+    return render_template("cxp.html")
 #################################################
 @app.route("/api/v1.0/cxc")
 def cxc():
