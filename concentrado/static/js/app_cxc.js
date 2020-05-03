@@ -6,19 +6,19 @@ function getPlot(id) {
 
     // obteniendo los datos the json file
 
-    d3.json("clientes.json").then((data)=> {
+    d3.json("http://127.0.0.1:5000/api/v1.0/clientes").then((data)=> {
        
         // wfreq es la frecuencia del lavado de manos semanal
-        var metadata = data;
-        var result = metadata.filter(meta => meta.Nombre === id);
-        var MontoSup = result[0].MONTO;
-        var NomSup = result[0].Cliente;
+        var metadata = data.data;
+        var result = metadata.filter(meta => meta.nombre === id);
+        var MontoSup = result[0].monto;
+        var NomSup = result[0].nombre;
         //console.log(MontoSup);
        
         
-        d3.json("cxc.json").then((cxp)=> {   
+        d3.json("http://127.0.0.1:5000/api/v1.0/cxc").then((cxp)=> {   
                // Grfaica de burbuja
-               var result = cxp;//.filter(meta => meta.Nombre === id);
+               var result = cxp.data;//.filter(meta => meta.Nombre === id);
                //console.log(result);
                //var nombre_su = result[0].Nombre;
                var nombre_su = [];
@@ -171,32 +171,37 @@ function getPlot(id) {
 function getInfo(id) {
      //console.log(id)
     // leemos el json y obtenemos los datos en data
-    d3.json("clientes.json").then((data)=> {
-        //  obtenemos los datos de metadata para el panel demográfico
-        var metadata = data;
-        //console.log(metadata)
-        // filtramos el metadatada ppro id
-        var result = metadata.filter(meta => meta.Nombre === id);
-        //console.log(result);
-        var frecuencia = result[0].MONTO
-        var tiposup = result[0].Tipo
-        //console.log(frecuencia);
+    d3.json("http://127.0.0.1:5000/api/v1.0/clientes").then((data)=> {
+        //  bajamos la parte de json que requerimos
+        var result = data.data;
+        var index;
+        var frecuencia;
+        var tiposup;
+        
+        // buscamos la que es igual al id y obtenemos los datos
+        for ( index = 0; index < result.length ; ++index) {
+          if (result[index].nombre==id ){
+            frecuencia = result[index].monto;
+            tiposup = result[index].tipo;
+          }
+        }      
+        
         // seleccionamos el #sample-metadata 
         var demographicInfo = d3.select("#sample-metadata");
         // limpiemoa lo que hay
         demographicInfo.html("");
         // ponemos la información
-        Object.entries(result).forEach((key) => {   
-              demographicInfo.append("h5").text("Monto: "+frecuencia );
-              demographicInfo.append("h5").text("Tipo: "+tiposup );
-        });
+        demographicInfo.append("h5").text("Monto: "+frecuencia );
+        demographicInfo.append("h5").text("Tipo: "+tiposup );
+        
     });
 }
 
 function deploytable(id) {
 
-  d3.json("cxc.json").then((cxp)=> {   
-    var result = cxp.filter(meta => meta.nombre === id);
+  d3.json("http://127.0.0.1:5000/api/v1.0/cxc").then((cxp)=> {   
+    console.log(cxp.data);
+    var result = cxp.data.filter(meta => meta.nombre === id);
     console.log(result);
     tbody = d3.select("tbody");
     function displayData(something){ 
@@ -221,10 +226,6 @@ function deleteTbody() {
 displayData(result);
 
 
-
-
-
-
   });
 }
 
@@ -235,8 +236,9 @@ displayData(result);
 // creamos la unfion pata cuando cambianmos el evento
 function optionChanged(event) {
     //console.log("primer evento");  
-    console.log("1) ",d3.event.target.value);
+    //console.log("1) ",d3.event.target.value);
     var supplier = d3.event.target.value;
+    //console.log(supplier);
     getInfo(supplier);
     getPlot(supplier);
     deploytable(supplier);
@@ -249,11 +251,12 @@ function init() {
     // selecionamos el  dropdown menu 
     var dropdown = d3.select("#selDataset");
     // leemos los  data 
-    d3.json("clientes.json").then((data)=> {
-        //console.log(data)
+    d3.json("http://127.0.0.1:5000/api/v1.0/clientes").then((data)=> {
+        var datos=data.data;
+        //console.log(datos);
         // obtenemos el id del data  y lo ponemos el en  dropdwown menu
-        data.forEach(function(data) {
-            dropdown.append("option").text(data.Nombre).property("value");
+        datos.forEach(function(data) {
+            dropdown.append("option").text(data.nombre).property("value");
         });
         // Llamamos a las funciones de obtencion de datso y grafica del primer elemento
         dropdown.on("change" , optionChanged);  

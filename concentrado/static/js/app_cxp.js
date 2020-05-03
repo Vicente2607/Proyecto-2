@@ -6,20 +6,20 @@ function getPlot(id) {
 
     // obteniendo los datos the json file
 
-    d3.json("proveedores.json").then((data)=> {
+    d3.json("http://127.0.0.1:5000/api/v1.0/proveedores").then((data)=> {
        
         // obtenemos los datos del proveedor
-        var metadata = data;
-        var result = metadata.filter(meta => meta.Nombre === id);
-        var MontoSup = result[0].MONTO1;
-        var NomSup = result[0].Nombre;
+        var metadata = data.data;
+        var result = metadata.filter(meta => meta.nombre === id);
+        var MontoSup = result[0].monto1;
+        var NomSup = result[0].nombre;
         //console.log(MontoSup);
        
         
-        d3.json("cxp.json").then((cxp)=> {   
+        d3.json("http://127.0.0.1:5000/api/v1.0/cxp").then((cxp)=> {   
                //obtenemos los datos de las cxp
-               var result = cxp;
-               var Datos_cxp = cxp.filter(meta => meta.Nombre === id);
+               var result = cxp.data;
+               var Datos_cxp = cxp.data.filter(meta => meta.nombre === id);
                var nombre_su = [];
                var index;
                var fechas_pago=[];
@@ -28,18 +28,18 @@ function getPlot(id) {
                for ( index = 0; index < result.length ; ++index) {
                   //console.log(result[index].fecha_pago);
                   fechas_pago.push(result[index].fecha_pago);
-                  montos_pago.push(parseFloat(result[index].MONTO));
-                  nombre_su.push(result[index].Nombre);
+                  montos_pago.push(parseFloat(result[index].monto));
+                  nombre_su.push(result[index].nombre);
 
-                  if (result[index].MONTO > 800000) {
+                  if (result[index].monto > 800000) {
                     colores_pago.push("#fe463d");
-                  } else if (result[index].MONTO > 600000) {
+                  } else if (result[index].monto > 600000) {
                     colores_pago.push("#fe783d");
-                  } else if (result[index].MONTO > 400000){
+                  } else if (result[index].monto > 400000){
                     colores_pago.push("#febb3d");
-                  } else if (result[index].MONTO > 200000){
+                  } else if (result[index].monto > 200000){
                     colores_pago.push("#fefe3d");
-                  } else if (result[index].MONTO > -1){
+                  } else if (result[index].monto > -1){
                      colores_pago.push("#fefeaf");};
                }
                //console.log(colores_pago); 
@@ -167,15 +167,15 @@ function getPlot(id) {
 function getInfo(id) {
      //console.log(id)
     // leemos el json y obtenemos los datos en data
-    d3.json("proveedores.json").then((data)=> {
+    d3.json("http://127.0.0.1:5000/api/v1.0/proveedores").then((data)=> {
         //  obtenemos los datos de metadata para el panel demográfico
-        var metadata = data;
+        var metadata = data.data;
         //console.log(metadata)
         // filtramos el metadatada ppro id
-        var result = metadata.filter(meta => meta.Nombre === id);
+        var result = metadata.filter(meta => meta.nombre === id);
         //console.log(result);
-        var frecuencia = result[0].MONTO
-        var tiposup = result[0].Tipo
+        var frecuencia = result[0].monto
+        var tiposup = result[0].tipo
         //console.log(frecuencia);
         // seleccionamos el #sample-metadata 
         var demographicInfo = d3.select("#sample-metadata");
@@ -192,8 +192,9 @@ function getInfo(id) {
 
 function deploytable(id) {
 
-  d3.json("cxp.json").then((cxp)=> {   
-    var result = cxp.filter(meta => meta.Nombre === id);
+  d3.json("http://127.0.0.1:5000/api/v1.0/cxp").then((cxp)=> {  
+    console.log(cxp.data); 
+    var result = cxp.data.filter(meta => meta.nomre === id);
     console.log(result);
     tbody = d3.select("tbody");
     function displayData(something){ 
@@ -246,11 +247,11 @@ function init() {
     // selecionamos el  dropdown menu 
     var dropdown = d3.select("#selDataset");
     // leemos los  data 
-    d3.json("proveedores.json").then((data)=> {
+    d3.json("http://127.0.0.1:5000/api/v1.0/proveedores").then((data)=> {
         //console.log(data)
         // obtenemos el id del data  y lo ponemos el en  dropdwown menu
-        data.forEach(function(data) {
-            dropdown.append("option").text(data.Nombre).property("value");
+        data.data.forEach(function(data) {
+            dropdown.append("option").text(data.nombre).property("value");
         });
         // Llamamos a las funciones de obtencion de datso y grafica del primer elemento
         dropdown.on("change" , optionChanged);  

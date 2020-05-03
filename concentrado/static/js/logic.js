@@ -100,8 +100,11 @@ var lightmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png
 });
 
 // importamos la basede datos
-var data = "proveedores.json";
-var clientes = "clientes.json";
+//var data = "proveedores.json"
+//var clientes = "clientes.json";
+
+//console.log(data);
+//console.log(clientes);
 
 var suppliersmarkers = [];
 var customersmarkers = [];
@@ -109,95 +112,105 @@ var Custtomap = new L.LayerGroup();
 var Supptomap = new L.LayerGroup();
 
 
-d3.json(data).then( proveedores => {
-    d3.json(clientes).then ( client => {
-        //console.log(response);
-        // Initialize an array to hold bike markers
+d3.json("http://127.0.0.1:5000/api/v1.0/proveedores").then( proveedores => {
+  d3.json("http://127.0.0.1:5000/api/v1.0/clientes ").then ( client => {
+    var proveedoresvar = proveedores.data;
+    console.log(proveedoresvar);
+    var clientesvar = client.data;
+    console.log(clientesvar);
     
-            // Loop through data
-        for (var i = 0; i < client.length; i++) {
-            //console.log(client[i].NO);
-        var marker = L.marker([client[i].Lat,client[i].Lon], {
+    // Loop through data for customers
+    for (var i = 0; i < clientesvar.length; i++) {
+      //console.log(clientesvar[i].no);
+      if(clientesvar[i].lat != null && clientesvar[i].lon != null){
+        var marker = L.marker([clientesvar[i].lat,clientesvar[i].lon], {
           icon: blueIcon,
-          title: client[i].Nombre
-        }).bindPopup(client[i].Nombre+" "+ client[i].MONTO);
-
-        if (client[i].MONTO>250000) {
-          var marker = L.marker([client[i].Lat,client[i].Lon], {
+          title: clientesvar[i].nombre
+        }).bindPopup("<h1>"+clientesvar[i].nombre+"</h1> <hr> <h3>Monto "+ clientesvar[i].monto+"</h3>");
+        if (clientesvar[i].monto>250000) {
+          var marker = L.marker([clientesvar[i].lat,clientesvar[i].lon], {
             icon: greenIcon,
-            title: client[i].Nombre
-          }).bindPopup(client[i].Nombre+" "+ client[i].MONTO); 
+            title: clientesvar[i].nombre
+          }).bindPopup("<h1>"+clientesvar[i].nombre+"</h1> <hr> <h3>Monto "+ clientesvar[i].monto+"</h3>");
         }
         //marker.addTo(myMap)
         customersmarkers.push(marker);
       }
-
-    // Initialize an array to hold bike markers
-    // Loop through data
-
-        for (var i = 0; i < proveedores.length; i++) {
-          //console.log(proveedores[i].NO);
-          var marker = L.marker([proveedores[i].Lat,proveedores[i].Lon], {
-            icon: goldIcon,
-            title: proveedores[i].Nombre
-          }).bindPopup(proveedores[i].Nombre+" "+ proveedores[i].MONTO);
-      
-          if (proveedores[i].MONTO1>250000) {
-            var marker = L.marker([proveedores[i].Lat,proveedores[i].Lon], {
-              icon: redIcon,
-              title: proveedores[i].Nombre
-            }).bindPopup(proveedores[i].Nombre+" "+ proveedores[i].MONTO); 
+    }
+    
+    // Loop through data for suppliers
+    for (var i = 0; i < proveedoresvar.length; i++) {
+      //console.log(proveedoresvar[i].no);
+      if(proveedoresvar[i].lat != null && proveedoresvar[i].lon != null){
+        var marker = L.marker([proveedoresvar[i].lat,proveedoresvar[i].lon], {
+          icon: goldIcon, 
+          title: proveedoresvar[i].nombre
+        }).bindPopup("<h1>"+proveedoresvar[i].nombre+"</h1> <hr> <h3>Monto "+ proveedoresvar[i].monto+"</h3>");
         
-          }
-
-          // Add the marker to the bikeMarkers array
-          suppliersmarkers.push(marker);
+        if (proveedoresvar[i].monto1>250000) {
+          var marker = L.marker([proveedoresvar[i].lat,proveedoresvar[i].lon], {
+            icon: redIcon,
+            title: proveedoresvar[i].nombre
+          }).bindPopup("<h1>"+proveedoresvar[i].nombre+"</h1> <hr> <h3>Monto "+ proveedoresvar[i].monto+"</h3>");
         }
+        // Add the marker to the suppliersmarkers array
+        suppliersmarkers.push(marker);
+      }
+    }
     
     // Create a layer group made from the bike markers array, pass it into the createMap function
-        Supptomap = L.layerGroup(suppliersmarkers);
-        //console.log(Supptomap);
-        Custtomap = L.layerGroup(customersmarkers);
-        //console.log(customersmarkers);
-        //console.log(Custtomap);
-        console.log("suppliersmarkers");
-        console.log(suppliersmarkers);
-        console.log("Supptomap");
-        console.log(Supptomap);
-        console.log("customersmarkers");
-        console.log(customersmarkers);
-        console.log("Custtomap");
-        console.log(Custtomap);
-        //console.log(layers);
-        //console.log(Supptomap);
-
-
-        // Create a map object
-        var myMap = L.map("map", {
-            center: [19.431371,-99.1326349],
-            zoom: 4,
-            layers: [Custtomap, Supptomap]
-        });
-      
-
-
-          // Add our 'lightmap' tile layer to the map
-          lightmap.addTo(myMap);
-
-          // Create an overlays object to add to the layer control
-        var overlays = {
-            "Customers": Custtomap,
-            "Suppliers": Supptomap//,
-            //"lightmap" : lightmap
-          };
-
-        // Create a control for our layers, add our overlay layers to it
-        L.control.layers(null, overlays).addTo(myMap);
-
-     
+    Supptomap = L.layerGroup(suppliersmarkers);
+    //console.log(Supptomap);
+    Custtomap = L.layerGroup(customersmarkers);
+    //console.log(customersmarkers);
+    //console.log(Custtomap);
+    console.log("suppliersmarkers");
+    console.log(suppliersmarkers);
+    console.log("Supptomap");
+    console.log(Supptomap);
+    console.log("customersmarkers");
+    console.log(customersmarkers);
+    console.log("Custtomap");
+    console.log(Custtomap);
+    //console.log(layers);
+    //console.log(Supptomap);
+    
+    // Create a map object
+    var myMap = L.map("map", {
+      center: [19.431371,-99.1326349],
+      zoom: 4,
+      layers: [Custtomap, Supptomap]
     });
-
+    
+    // Add our 'lightmap' tile layer to the map
+    lightmap.addTo(myMap);
+    
+    // Create an overlays object to add to the layer control
+    var overlays = {
+      "Customers": Custtomap,
+      "Suppliers": Supptomap//,
+      //"lightmap" : lightmap
+    };
+    
+    // Create a control for our layers, add our overlay layers to it
+    L.control.layers(null, overlays).addTo(myMap);
+    
+    //Set up the legend
+    //var legend = L.control({ position: "bottomright" });
+    //
+    //// When the layer control is added, insert a div with the class of "legend"
+    //legend.onAdd = function() {
+    //  var div = L.DomUtil.create("div", "legend");
+    //  var legendinfo = "<h1>Median Income</h1>";
+    //  
+    //  div.innerHTML = legendInfo;
+    //  return div;
+    //};
+    //
+    //// Adding legend to the map
+    //legend.addTo(myMap);
   
+  });
 });
 
 
