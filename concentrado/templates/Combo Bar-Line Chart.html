@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!-- saved from url=(0116)file:///C:/Users/Usuario/Documents/Vpc/Boot%20Camp/Week%20-%2019/egresoseingresos/samples/charts/combo-bar-line.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<title>Fujo de Efectivo</title>
+	<script src="./Combo Bar-Line Chart_files/Chart.min.js.descarga"></script>
+	<script src="./Combo Bar-Line Chart_files/utils.js.descarga"></script>
+	<style>
+	canvas {
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+	}
+	</style>
+<style type="text/css">/* Chart.js */
+@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}</style></head>
+
+<body>
+	<div style="width: 75%"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+		<canvas id="canvas" style="display: block; width: 788px; height: 394px;" width="788" height="394" class="chartjs-render-monitor"></canvas>
+	</div>
+	<button id="randomizeData">Carga Datos</button>
+	<script>
+		var chartData = {
+			labels: ['18/abr/2020', '25/abr/2020', '2/may/2020', '9/may/2020', '16/may/2020', '23/may/2020', '30/may/2020','6/jun/2020','13/jun/2020'],
+			datasets: [{
+				type: 'line',
+				label: 'Saldo',
+				borderColor: window.chartColors.green,
+				borderWidth: 2,
+				fill: false,
+				data: [
+					697948.8,
+					500936.17,
+					1279100.15,
+					2299902.22,
+					1747584.01,
+					4057212.43,
+					3801288.72,
+					3591145.39,
+					7583129.09	
+				]
+			}, {
+				type: 'bar',
+				label: 'Egresos',
+				backgroundColor: window.chartColors.red,
+				data: [
+					0,
+					564664.64,
+					764492.02,
+					3070340.88,
+					2232511.91,
+					1440471.44,
+					2049178.96,
+					691597.73,
+					1342875.73
+				],
+				borderColor: 'white',
+				borderWidth: 2
+			}, {
+				type: 'bar',
+				label: 'Ingresos', 
+				backgroundColor: window.chartColors.blue,
+				data: [
+					697948.8,
+					367652.01,
+					5633798.94,
+					1680193.7,
+					3750099.86,
+					1793255.26,
+					481454.4,
+					5334859.43
+				]
+			}]
+
+		};
+		window.onload = function() {
+			var ctx = document.getElementById('canvas').getContext('2d');
+			window.myMixedChart = new Chart(ctx, {
+				type: 'bar',
+				data: chartData,
+				options: {
+					responsive: true,
+					title: {
+						display: true,
+						text: 'Ingresos - Egresos - Flujo de Efectivo'
+					},
+					tooltips: {
+						mode: 'index',
+						intersect: true
+					}
+				}
+			});
+		};
+
+		document.getElementById('randomizeData').addEventListener('click', function() {
+			chartData.datasets.forEach(function(dataset) {
+				dataset.data = dataset.data.map(function() {
+					return randomScalingFactor();
+				});
+			});
+			window.myMixedChart.update();
+		});
+	</script>
+
+
+
+</body></html>

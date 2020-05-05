@@ -1,33 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Location of Customers & Suppliers</title>
-
-  <!-- Leaflet CSS & JS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
-  integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
-  crossorigin=""/>
-  <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
-  integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
-  crossorigin=""></script>
-  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ejemplo</title>
+  <!--<link rel="stylesheet" href="style.css">-->
 
   <!-- Our CSS -->
-  <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/style1.css">
   <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-</head>
 
+
+</head>
 <body>
 
   <div class="container">
     <div class="row">
       <div class="col-md-12 jumbotron text-center">
-        <h1>Map</h1>
-        <p>Customers & Suppliers Location</p>
+        <h1>Balance Graph</h1>
+        <p>Inflows & Outflows Dynamic</p>
       </div>
     </div>
   </div>
@@ -49,7 +43,8 @@
               <div class="dropdown-menu" aria-labelledby="navbar-dropdown-menu">
                   <a class="dropdown-item" href="cxc.html">Accounts to be Collected</a>
                   <a class="dropdown-item" href="cxp.html">Accounts to be Paid</a>
-                  <a class="dropdown-item" href="egresosingresos.html">Balance Graph</a>
+                  <a class="dropdown-item" href="map.html">Map</a>
+                  <a class="dropdown-item" href="Combo Bar-Line Chart.html">New JS library</a>
               </div>
         </div>
         <!-- Other Navi Bar Links -->
@@ -58,20 +53,16 @@
         
     </div>
   </nav>
-  <!-- The div where we will inject our map -->
-  <div id="map"></div>
-  <div id="chart"></div>
-
-  <!-- API key -->
-   <script type="text/javascript" src="../static/js/config.js"></script>
-  <!-- Our JS -->
-  <script type="text/javascript" src="../static/js/logic.js"></script> 
-  <!--<script type="text/javascript" src="app1.js"></script> -->
+  <svg width="960" height="600"></svg>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="../static/js/app1.js"></script>
 
   <!-- JQuery and Javascript for DropDown Actions to work -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
 
 </body>
 </html>

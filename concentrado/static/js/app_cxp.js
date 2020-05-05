@@ -25,11 +25,12 @@ function getPlot(id) {
                var fechas_pago=[];
                var montos_pago=[];
                var colores_pago=[];
+               console.log(result);
                for ( index = 0; index < result.length ; ++index) {
                   //console.log(result[index].fecha_pago);
                   fechas_pago.push(result[index].fecha_pago);
                   montos_pago.push(parseFloat(result[index].monto));
-                  nombre_su.push(result[index].nombre);
+                  nombre_su.push(result[index].nomre);
 
                   if (result[index].monto > 800000) {
                     colores_pago.push("#fe463d");

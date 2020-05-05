@@ -10,6 +10,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Suppliers DashBoard</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
 
@@ -29,6 +32,34 @@
 
     </div>
 
+    <nav id="navi-bar" class="navbar navbar-expand-lg navbar-light">
+
+      <a id="navi-header" class="navbar-brand" href="Landing_page.html">Home</a>
+  
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <!-- Collapse navbar-collapse goes into the "hamburger" -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="navbar-nav ml-auto">
+          <!-- Dropdown Menu -->
+          <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbar-dropdown-menu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Visualisations</a>
+                <div class="dropdown-menu" aria-labelledby="navbar-dropdown-menu">
+                    <a class="dropdown-item" href="cxc.html">Accounts to be Collected</a>
+                    <a class="dropdown-item" href="map.html">Map</a>
+                    <a class="dropdown-item" href="egresosingresos.html">Balance Graph</a>
+                    <a class="dropdown-item" href="Combo Bar-Line Chart.html">New JS library</a>
+                </div>
+          </div>
+          <!-- Other Navi Bar Links -->
+          <a class="nav-item nav-link" href="#">____________________________________</a>
+          <a class="nav-item nav-link" href="#">                                      </a>
+          
+      </div>
+    </nav>
+
     <div class="row">
       <div class="col-md-6">
         <div class="well">
@@ -47,12 +78,17 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="col-md-12">
+        <div id="bubble"></div>
+      </div>
+    </div>
+
     <div class="col-md-10">
       <div id="table-area" class="">
         <table id="Documentos" class="table table-striped">
           <thead>
             <tr>
-              <th class="table-head">No</th>
               <th class="table-head">Nombre</th>
               <th class="table-head">Documento</th>
               <th class="table-head">Fecha</th>
@@ -71,11 +107,9 @@
 
 
 
-    <div class="row">
-      <div class="col-md-12">
-        <div id="bubble"></div>
-      </div>
-    </div>
+    
+
+    
 
     
 
@@ -91,6 +125,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="../static/js/app_cxp.js"></script>
+
+  <!-- JQuery and Javascript for DropDown Actions to work -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
  
 
 </body>

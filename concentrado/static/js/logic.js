@@ -178,7 +178,7 @@ d3.json("http://127.0.0.1:5000/api/v1.0/proveedores").then( proveedores => {
     // Create a map object
     var myMap = L.map("map", {
       center: [19.431371,-99.1326349],
-      zoom: 4,
+      zoom: 8,
       layers: [Custtomap, Supptomap]
     });
     

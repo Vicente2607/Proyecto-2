@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from sqlalchemy import create_engine
 import scipy.stats as stats
 import json
+import psycopg2
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask import render_template
