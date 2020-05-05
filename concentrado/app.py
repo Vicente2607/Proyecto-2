@@ -94,7 +94,7 @@ class Pp(db.Model):
     #)
 
 def home():
-    return render_template("cxp.html")
+    return render_template("Landing_page.html")
 #################################################
 @app.route("/api/v1.0/cxc")
 def cxc():
